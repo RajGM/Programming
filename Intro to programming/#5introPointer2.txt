@@ -1,0 +1,13 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int ptrA,a=100;
+    int *b=&a;
+    cout<<b<<endl;
+    ptrA=*b;
+    cout<<ptrA<<endl;
+    return 0;
+}
