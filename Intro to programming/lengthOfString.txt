@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+int main() {
+ char Word[6]; int wordlength =0, i;
+ cout << "input string: " << endl; cin >> Word;
+ for (i =0; i < 6; i++){
+ if (Word[i] == '\0') break;
+ }
+ wordlength = i;
+ cout <<"Length of the string is " << wordlength << endl;
+ return 0;
+}
