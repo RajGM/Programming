@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+
+int main()
+{
+    char sentence[200],words[50][200];
+    int num_words,count_char,i=0;
+    
+    gets(sentence);
+    while(sentence[i]!='\0'){
+        if(sentence[i]!=' '){
+            words[num_words][count_char]=sentence[i];
+            count_char++;
+            if(sentence[i+1]==' ' || sentence[i+1]=='\0'){
+                words[num_words][count_char]='\0';
+                num_words++;
+                count_char=0;
+            }
+        }
+        i++;
+    }
+    
+    for(i=0;i<num_words;i++){
+        cout<<words[i]<<endl;
+    }
+    
+    return 0;
+}
