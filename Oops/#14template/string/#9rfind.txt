@@ -1,0 +1,15 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    string s1="Hello World!!!";
+    int i,j;
+    i=s1.rfind("World");
+    j=s1.rfind("!!");
+    cout<<i<<" "<<j<<endl;
+    
+    return 0;
+}

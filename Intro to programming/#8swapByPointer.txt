@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+void swapbyval(int *ptrA,int *ptrB);
+
+int main()
+{
+    int a=67,b=98;
+    swapbyval(&a,&b);
+    cout<<"Value of A:"<<a<<endl;
+    cout<<"Value of B:"<<b<<endl;
+}
+
+void swapbyval(int *ptrA,int *ptrB){
+    int temp;
+    temp=*ptrA;
+    *ptrA=*ptrB;
+    *ptrB=temp;
+}

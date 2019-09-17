@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+struct Mystruct{
+    char newchar;
+    int x,y;
+};
+
+int main()
+{
+    Mystruct *ptrP1,p1;
+    ptrP1=&p1;
+    
+    *ptrP1={'a',55,88};
+    cout<<(*ptrP1).newchar<<endl;
+    cout<<(*ptrP1).x<<endl;
+    cout<<(*ptrP1).y<<endl;
+    
+    //Another way also
+    cout<<"Another way also"<<endl;
+    
+    cout<<ptrP1->newchar<<endl;
+    cout<<(ptrP1->x)<<endl;
+    cout<<(ptrP1->y)<<endl;
+    
+    return 0;
+}

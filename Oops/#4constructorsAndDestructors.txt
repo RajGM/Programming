@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+class V3 {
+private:
+double x, y, z;
+
+public:
+V3 (double vx, double vy, double vz) {
+x = vx; y = vy; z = vz; 
+return;
+}
+
+V3 () { 
+    x = y = z = 0.0; 
+    return; }
+
+void showOutput(){
+    cout<<"X:"<<x<<endl;
+    cout<<"Y:"<<y<<endl;
+    cout<<"Z:"<<z<<endl;
+}
+
+~V3(){
+    cout<<"Destruction"<<endl;
+    showOutput();
+}
+
+};
+
+int main(){
+    
+cout<<"Hello World"<<endl;
+
+V3 a (3.1, 6.7, 2.9);
+a.showOutput();
+
+{
+V3 b(45.2,56.81,93.56);
+b.showOutput();
+}
+
+V3 *p, *q;
+p = new V3 (1.0, 2.0, 3.0);
+q = new V3;
+delete p; delete q;
+
+return 0;
+}

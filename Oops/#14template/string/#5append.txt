@@ -1,0 +1,16 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    string s1,s2,s3;
+    s2="Hello";
+    s3=" My World";
+    s1.append(s2);
+    s1.append(s3,4,5);
+    cout<<s1<<endl;
+    
+    return 0;
+}

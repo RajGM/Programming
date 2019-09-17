@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+struct Book {
+char title[50];
+char authors[500];
+double price;
+int accNum;
+bool checkOutStatus;
+int claimantId;
+};
+
+int main()
+{
+   Book myChoice ={"Shashi Dev", "IIT Bombay, India", 2345, 0, -1,123};
+   Book newChoice;
+   cout<<myChoice.title<<endl;
+   newChoice=myChoice;
+   cout<<newChoice.title<<endl;
+    return 0;
+}

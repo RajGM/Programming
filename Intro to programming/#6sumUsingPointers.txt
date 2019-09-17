@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{ 
+int m,n,*ptrA,*ptrB,sum;
+cout<<"Enter values for M:";
+cin>>m;
+cout<<"Enter value for N:";
+cin>>n;
+ptrA=&m;
+ptrB=&n;
+sum=*ptrA+*ptrB;
+cout<<endl;
+cout<<sum<<endl;
+return 0;
+}

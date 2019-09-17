@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int *funpoi(int *var1);
+
+int main()
+{
+    int a=400,*b;
+    b=funpoi(&a);
+    cout<<*b<<endl;
+    return 0;
+}
+
+int *funpoi(int *var1){
+    int temp;
+    temp=*var1;
+    *var1=temp*temp;
+    return var1;
+}

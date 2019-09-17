@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int a,b,*ptr,**ptrptr;
+    ptrptr=&ptr;
+    cout<<"Enter value for A:";
+    cin>>a;
+    cout<<"Enter value for B:";
+    cin>>b;
+    ptr=&a;
+    cout<<"Content of PTRPTR now:"<<**ptrptr<<endl;
+    ptr=&b;
+    cout<<"Content of PTRPTR now:"<<**ptrptr<<endl;
+    return 0;
+}

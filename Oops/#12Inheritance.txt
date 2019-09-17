@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Base{
+    public:
+    int id;
+    float balance;
+    string name;
+};
+
+class savings : public Base{
+    public:
+    int age;
+    long int ATM;
+};
+
+class current : public Base{
+    public:
+    int amount;
+    int overdraft;
+};
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    savings s;
+    s.id=1024;
+    s.age=16;
+    s.ATM=12345666;
+
+    current c;
+    c.id=1345;
+    c.amount=19920;
+    
+    cout<<"Account Details:"<<endl;
+    cout<<"Savings"<<endl<<endl;
+    cout<<"ID:"<<s.id<<endl;
+    cout<<"Age:"<<s.age<<endl;
+    cout<<"ATM:"<<s.ATM<<endl;
+    
+    cout<<"Current"<<endl;
+    cout<<"ID:"<<c.id<<endl;
+    cout<<"Amount:"<<c.amount<<endl;
+    
+
+    return 0;
+}

@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    struct Point{
+        double x,y;
+    };
+    
+    struct Disk{
+        Point center;
+        double radius;
+    };
+    
+    Disk d1;
+    Point p1;
+    d1.center.x=14.56;
+    d1.center.y=56.46;
+    d1.radius=22.45;
+    p1.x=44.56;
+    p1.y=22.09;
+    cout<<d1.center.x<<endl;
+    cout<<d1.center.y<<endl;
+    cout<<d1.radius<<endl;
+    cout<<p1.x<<endl;
+    cout<<p1.y<<endl;
+    return 0;
+}

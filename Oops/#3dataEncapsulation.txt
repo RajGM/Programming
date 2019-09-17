@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+struct accesFunc{
+    private:
+    double x,y,z;
+    
+    public:
+    accesFunc getxyz(double vx,double vy,double vz){
+        accesFunc aF;
+        x=vx;
+        y=vy;
+        z=vz;
+        return aF;
+    }
+    void showOutput(){
+        cout<<"X:"<<x<<endl;
+        cout<<"Y:"<<y<<endl;
+        cout<<"Z:"<<z<<endl;
+    }
+};
+
+int main()
+{
+    cout<<"Hello World";
+    double x,y,z;
+    cout<<"Enter values for x,y,z"<<endl;
+    cin>>x>>y>>z;
+    accesFunc acF;
+    acF.getxyz(x,y,z);
+    acF.showOutput();
+    return 0;
+}

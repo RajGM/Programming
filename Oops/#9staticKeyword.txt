@@ -1,0 +1,62 @@
+#include <iostream>
+
+using namespace std;
+
+class Point{
+    private:
+    double x,y;
+    
+    public:
+    static int count;
+    Point(){
+        count++;
+        return;
+    }
+    
+    Point(double a,double b){
+        x=a;
+        y=b;
+        count++;
+        return;
+    }
+};
+
+int Point::count = 0;
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    Point a,b,c(0.0,0.0);
+    cout<<"Count of points:"<<Point::count<<endl;
+
+    return 0;
+}
+
+
+/* 
+
+#include <iostream> 
+#include <string> 
+using namespace std; 
+  
+void demo() 
+{  
+    // static variable 
+    static int count = 0; 
+    cout << count << " "; 
+      
+    // value is updated and 
+    // will be carried to next 
+    // function calls 
+    count++; 
+} 
+  
+int main() 
+{ 
+    for (int i=0; i<5; i++)     
+        demo(); 
+    return 0; 
+} 
+
+
+*/

@@ -1,0 +1,12 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+int main()
+{
+    int var1;
+    float var2;
+    char var3[40];
+    scanf("%6d%7s%f",&var1,var3,&var2);
+    printf("%6d\n%7s\n%f",var1,var3,var2);
+    return 0;
+}

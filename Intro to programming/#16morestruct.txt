@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+struct Driver{
+   string name;
+   int id;
+};
+struct Taxi{
+   int id;
+   Driver *drv;
+   Taxi *next;
+};
+int main()
+{
+   Driver d1;
+   Taxi t1;
+   d1 = {"Shekhar",56};
+   t1.id=55;
+   t1.drv=&d1;
+   cout<<d1.name<<" AND "<<d1.id<<endl;
+   return 0;
+}
+/*
+OR
+#include <iostream>
+using namespace std;
+struct Driver{
+    char name[50];
+    int id;
+};
+struct Taxi{int id;
+    Driver *drv;
+};
+int main(){
+    Taxi t1;
+    Driver d1 = {"Shekhar", 23};
+    t1.id = 12;
+    t1.drv = &d1;
+    cout << d1.name;
+  return 0;
+}
+BUT NOT THIS
+#include <iostream>
+using namespace std;
+struct Driver {
+   char name[50];
+   int id;
+   };
+struct Taxi {
+   int id;
+   Driver *drv;
+   };
+int main(){
+Driver d1;
+d1= {"Shekhar", 23};
+return 0;
+}
+*/
+First one works with strings
+declaration in one line and initialization in other
+Second one works with char
+declaration and initialization in same line
+Third one did not workds
+declaration and initialization in different line

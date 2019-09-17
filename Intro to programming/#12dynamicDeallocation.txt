@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+int *dynamicfun(int n);
+
+int main()
+{
+    int numOfStu,*qmarks;
+    cout<<"Give no. of students:"<<endl;
+    cin>>numOfStu;
+    
+    qmarks=dynamicfun(numOfStu);
+    cout<<"Displaying all inputs:"<<endl;
+    for(int i=0;i<numOfStu;i++){
+        cout<<qmarks[i]<<endl;
+    }
+
+    return 0;
+}
+
+int *dynamicfun(int n){
+    int *marks,i,*temp;
+    marks= new int[n];
+    if(marks!=NULL){
+        for(i=0;i<n;i++){
+            cin>>marks[i];
+        }
+    temp=new int[n];
+    if(temp!=NULL){
+        cout<<"Showing temp Data:"<<endl;
+        cout<<&temp<<endl;
+        for(i=0;i<n;i++){
+            temp[i]=marks[i]+10;
+            cout<<"Temp val:"<<temp[i]<<endl;
+        }
+    }
+    if(temp!=NULL){
+        delete[] temp;
+        cout<<&temp<<endl;
+    }
+    
+    }
+    
+    return marks;
+}

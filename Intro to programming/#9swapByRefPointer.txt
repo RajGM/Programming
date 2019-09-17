@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+void swapbyref(int &addA,int &addB);
+
+int main()
+{
+    int a=67,b=98;
+    swapbyref(a,b);
+    cout<<"Value of A:"<<a<<endl;
+    cout<<"Value of B:"<<b<<endl;
+    return 0;
+}
+
+void swapbyref(int &addA,int &addB){
+    int temp;
+    temp=addA;
+    addA=addB;
+    addB=temp;
+}
+
+
