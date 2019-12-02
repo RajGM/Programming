@@ -1,0 +1,145 @@
+#include <iostream>
+#include <stack>
+#include <cstring>
+using namespace std;
+
+bool checkParenthesis(char infix[]){
+    cout<<"Inside checkParenthesis function"<<endl;
+    int open=0,close=0,i=0;
+    while(infix[i]!='\0'){
+        cout<<"Insie while of checkParenthesis and value of i:"<<i<<endl;
+        if(infix[i]=='(')
+        open++;
+        if(infix[i]==')')
+        close++;
+        if(close>open)
+        return false;
+        i++;
+    }
+    //earlier i++ was put here
+    if(open==close)
+    return true;
+    else
+    return false;
+}
+
+
+//Check all char 
+//Allowed a-z,A-Z,+,-,*,/,%,^,()
+bool isValid(char currentChar){
+    return ((currentChar>=65 && currentChar<=90) || (currentChar>=97 && currentChar<=122) || (currentChar>=40 && currentChar <=43) || currentChar==45 || currentChar==47 || currentChar==94 );
+}
+
+//Validate String 
+bool validate(char infix[]){
+    cout<<"Inside validate function:"<<endl;
+    int i=0;
+    cout<<"Value of I:"<<i<<endl;
+    while(infix[i]!='\0'){
+        cout<<"Inside while loop"<<endl;
+        cout<<"Valud of i inside while loop:"<<i<<endl;
+        cout<<"isValid State:"<<isValid(infix[i])<<endl;
+        if(!isValid(infix[i]))
+            return false;
+        else 
+        i++;
+    }
+    cout<<"Outside while loop"<<endl;
+    if(checkParenthesis(infix) == false){
+        return false;
+    }
+    cout<<"Everything is OK in validate function"<<endl;
+    return true;
+}
+
+int priorityNumber(char Operator){
+    if(Operator == '^')
+        return 0;
+    if(Operator == '*' || Operator == '/')
+        return 1;
+    if(Operator == '+' || Operator == '-')
+        return 2;
+    if(Operator == '(')
+        return 3;
+}
+
+bool checkPriority(char currentOperator,char topOperator){
+    if(priorityNumber(currentOperator)<priorityNumber(topOperator))
+        return true;
+    else
+        return false;
+}
+
+bool isOperand(char currentChar){
+    return ((currentChar>=65 && currentChar<=90) || (currentChar>=97 && currentChar<=122));
+}
+
+void infix2Postfix(char infix[],char answer[]){
+    int i=0,j=0;
+    char currentChar;
+    char postfix[50]="";
+    stack<char> operatorStack;
+    while(infix[i]!='\0'){
+            currentChar=infix[i];
+            if(isOperand(currentChar)){
+                postfix[j]=currentChar;
+                j++;
+            }else{
+                if(currentChar=='('){
+                    operatorStack.push(currentChar);
+                    i++;
+                    continue;
+                }
+                
+                if(operatorStack.empty()){
+                    if(currentChar!=')')
+                    operatorStack.push(currentChar);
+                }else{
+                    if(checkPriority(currentChar,operatorStack.top())){
+                        operatorStack.push(currentChar);
+                    }
+                    else{
+                        while(!operatorStack.empty()){
+                            if(operatorStack.top()=='('){
+                                operatorStack.pop();
+                                break;
+                            }
+                            postfix[j]=operatorStack.top();
+                            j++;
+                            operatorStack.pop();
+                        }
+                        if(currentChar!=')')
+                            operatorStack.push(currentChar);
+                    }
+                }
+            }
+        i++;
+    }
+    
+    while(!operatorStack.empty()){
+        postfix[j]=operatorStack.top();
+        operatorStack.pop();
+        j++;
+    }
+    
+    strcpy(answer,postfix);
+}
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    char infix[50],postfix[50];
+    cout<<"Enter infix without space"<<endl;
+    cin>>infix;
+    
+    if(validate(infix)==false){
+        cout<<"Expression contains unwanted char"<<endl;
+        return -1;
+    }
+    
+    cout<<"Infix Expression:"<<infix<<endl;
+    infix2Postfix(infix,postfix);
+    cout<<"Postfix Expression:"<<postfix<<endl;
+    
+    return 0;
+}

@@ -1,0 +1,164 @@
+//Header files Starts
+#include <iostream>
+#include <stack>
+#include <cstring>
+using namespace std;
+//Header files Ends
+
+//DS Starts
+class textEditor{
+    private:
+    stack<char> leftStack;
+    stack<char> rightStack;
+    public:
+    void insertWord(char word[]);
+    void insertChar(char character);
+    bool deleChar();
+    bool backSpaceChar();
+    void moveCursor(int position);
+    void moveLeft(int position);
+    void moveRight(int position);
+    void findAndReplaceChar(char findWhat,char replaceWith);
+    void examineTop();
+}; 
+//DS Ends
+
+//Algo Starts
+void textEditor::examineTop(){
+    if(leftStack.empty())
+        cout<<"Left Stack is empty"<<endl;
+    else
+        cout<<"Left Stack:"<<leftStack.top()<<" "<<"Left Stack size:"<<leftStack.size()<<endl;
+    if(rightStack.empty())
+        cout<<"Right Stack is empty"<<endl;
+    else
+        cout<<"Right Stack:"<<rightStack.top()<<" "<<"Right Stack size:"<<rightStack.size()<<endl;
+}
+
+void textEditor::insertChar(char character){
+    leftStack.push(character);
+}
+
+void textEditor::insertWord(char word[]){
+    int i=0;
+    while(word[i]!='\0'){
+        insertChar(word[i]);
+        i++;
+    }
+}
+
+bool textEditor::deleChar(){
+    if(rightStack.empty())
+       return false;
+    else
+        rightStack.pop();
+    return true;
+}
+
+bool textEditor::backSpaceChar(){
+    if(leftStack.empty())
+        return false;
+    else
+        leftStack.pop();
+    return true;
+}
+
+void textEditor::moveLeft(int position){
+    int leftSize = leftStack.size();
+    while(position!=leftSize){
+        rightStack.push(leftStack.top());
+        leftStack.pop();
+        leftSize = leftStack.size();
+    }
+}
+
+void textEditor::moveRight(int count){
+    int rightSize,i=1;
+    rightSize = rightStack.size();
+    if(count>rightSize){
+        cout<<"Cannot move size is less than position inut"<<endl;
+    }else{
+        while(i<=count){
+            leftStack.push(rightStack.top());
+            rightStack.pop();
+            i++;
+        }
+    }
+}
+
+void textEditor::moveCursor(int position){
+    int leftSize,rightSize,count;
+    leftSize=leftStack.size();
+    rightSize=rightStack.size();
+    
+    if(position<leftSize){
+        moveLeft(position);
+    }else{
+        count=position-leftSize;
+        moveRight(count);
+    }
+}
+
+void textEditor::findAndReplaceChar(char findWhat,char replaceWith){
+    int count=1,originalCursorPoition = leftStack.size();
+    moveCursor(0);
+    while(!rightStack.empty()){
+        if(rightStack.top()==findWhat){
+            deleChar();
+            insertChar(replaceWith);
+        }
+        else{
+            moveCursor(count);
+        }
+        count++;
+    }
+    moveCursor(originalCursorPoition);
+}
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    int i=0;
+    char text[80];
+    textEditor txt;
+    
+    cout<<"Enter word to be inserted"<<endl;
+    cin.getline(text,80);
+    txt.insertWord(text);
+    cout<<"Inseting word:"<<endl;
+    txt.examineTop();
+    
+    cout<<"Enter word to insert"<<endl;
+    cin.getline(text,80);
+    txt.insertWord(text);
+    cout<<"Inserting word"<<endl;
+    txt.examineTop();
+    
+    txt.moveCursor(10);
+    txt.examineTop();
+    
+    txt.moveCursor(20);
+    txt.examineTop();
+    
+    for(i=0;i<3;i++){
+        if(!txt.deleChar())
+            cout<<"Nothing to delete,move cursor to char to delete"<<endl;
+        else
+            cout<<"Delete using DeL"<<endl;
+        txt.examineTop();
+    }
+    
+    for(i=0;i<7;i++){
+        if(!txt.backSpaceChar())
+            cout<<"Nothing to delete"<<endl;
+        else
+            cout<<"Delete using Backspace"<<endl;
+        txt.examineTop();
+    }
+    
+    txt.findAndReplaceChar('t','T');
+    cout<<"Replace t with T"<<endl;
+    txt.examineTop();
+
+    return 0;
+}
