@@ -6,17 +6,7 @@ using namespace std;
 struct personInfo{
     int personID;
     int arrivalTime;
-    //friend ostream& operator<<(ostream& personID,ostream& arrivalTime);
-    //friend ostream& operator<<(ostream& os, const Date& dt);
 };
-
-/*
-ostream& operator<<(ostream& personID,ostream& arrivalTime)
-{
-    personID << personID << arrivalTime ;
-    return personID;
-}
-*/
 
 class busStop{
     private:
@@ -27,7 +17,6 @@ class busStop{
     void boardBus(int busArrivalTime,int availableSeats);
 };
 
-
 int busStop::id = 1000;
 
 void busStop::personArrives(int time){
@@ -35,7 +24,7 @@ void busStop::personArrives(int time){
     person.personID = ++id;
     person.arrivalTime = time;
     busQueue.push(person);
-    cout<<"Person:"<<busQueue.back()<<"Arrival Time:"<<busQueue.back().arrivalTime<<endl;
+    cout << "Person: " << busQueue.back().personID << ", " << busQueue.back().arrivalTime << endl;
 }
 
 void busStop::boardBus(int busArrivalTime,int availableSeats){
