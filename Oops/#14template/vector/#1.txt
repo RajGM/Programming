@@ -1,0 +1,16 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    cout<<"Hello World"<<endl;
+    vector<int> intVec;
+    vector<float> floatVec;
+    vector<char> charVec(5,'a');
+    cout<<intVec.size()<< "::" <<floatVec.size()<<endl;
+    for(int i=0;i<charVec.size();i++){
+        cout<<charVec[i];
+    }
+
+    return 0;
+}
