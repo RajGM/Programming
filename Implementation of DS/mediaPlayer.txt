@@ -36,22 +36,30 @@ class mediaPlayer{
 int mediaPlayer::songID=0;
 
 void mediaPlayer::displayPlaylist(){
-    /* Debugging
-    
-    */
+     /* Debugging
+    for(it = playlist.begin();it!=playlist.end();it++){
+        cout<<it->duration<<endl;
+    }
+     */
     cout<<"----------------------------------------------------------------"<<endl;
     cout<<"Song Title \t\t Singer \t \t Duration\n";
     cout<<"----------------------------------------------------------------"<<endl;
     list<song> copyPlaylist;
-    list<song>::iterator copy_it;
     copyPlaylist = playlist;
+    list<song>::iterator copy_it;
     for(copy_it=copyPlaylist.begin();copy_it!=copyPlaylist.end();copy_it++)
-        cout<< copy_it->title <<"\t\t" << copy_it->singer <<"\t\t" << it->duration<<endl;
+        cout<< copy_it->title <<"\t\t" << copy_it->singer <<"\t\t" << copy_it->duration<<endl;
     cout<<"----------------------------------------------------------------"<<endl;
 }
 
 void mediaPlayer::displaySong(){
+    cout<<endl;
+    cout<<"----------------------------------------------------------------"<<endl;
+    cout<<"Song Title \t\t Singer \t \t Duration\n";
     cout<< it->title <<"\t\t" << it->singer << "\t\t" << it->duration<<endl;
+    cout<<"----------------------------------------------------------------"<<endl;
+    cout<<endl;
+    
 }
 
 void mediaPlayer::openPlayer(){
@@ -90,7 +98,7 @@ bool mediaPlayer::goToFirst(){
         return false;
     else
         it = playlist.begin();
-        return true;
+    return true;
 }
 
 bool mediaPlayer::goToPrev(){
@@ -98,7 +106,7 @@ bool mediaPlayer::goToPrev(){
         return false;
     else
         it--;
-        return true;
+    return true;
 }
 
 bool mediaPlayer::goToLast(){
@@ -206,36 +214,21 @@ int main()
         player.displaySong();
     else
         cout<<"Cannot navigate to 1st song\n";
-
+        
+    if(player.goToNext())
+        player.displaySong();
+    else
+        cout<<"Cannot navigate to next song\n";
+    
+    if(player.goToPrev())
+        player.displaySong();
+    else    
+        cout<<"Cannot navigate to Previous song\n";
+    
     if(player.goToLast())
         player.displaySong();
     else
         cout<<"Cannot navigate to last song\n";
-
-    if(player.goToNext())
-        player.displaySong();
-    else
-        cout<<"Cannot navigate to next song\n";
-
-    if(player.goToPrev())
-        player.displaySong();
-    else    
-        cout<<"Cannot navigate to Previous song\n";
-
-    if(player.goToPrev())
-        player.displaySong();
-    else    
-        cout<<"Cannot navigate to Previous song\n";
-
-    if(player.goToNext())
-        player.displaySong();
-    else
-        cout<<"Cannot navigate to next song\n";
-
-    if(player.goToFirst())
-        player.displaySong();
-    else    
-        cout<<"Cannot navigate to 1st song\n";
 
     if(player.goToPrev())
         player.displaySong();
