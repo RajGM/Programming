@@ -1,0 +1,139 @@
+#include <iostream>
+#include <queue>
+#include <string>
+#include <list>
+using namespace std;
+
+struct customerInfo{
+    int custID;
+    int arrivalTime;
+};
+
+struct foodInfo{
+    int foodID;
+    string foodName;
+    float rate;
+};
+
+struct orders{
+    int tokenID;
+    float cost;
+};
+
+struct kitchen{
+    struct orders order;
+    int preparationTime;
+};
+
+class restaurant{
+    private:
+    static int custID,tokenID,foodIndex;
+    struct foodInfo food[100];
+    struct orders order;
+    list<kitchen> listInKitchen;
+    queue<customerInfo> customerQueue;
+    queue<int> orderDispatch;
+    public:
+    void loadMenu();
+    void setFoodItems(int id,string name,float amount);
+    void customerArrives(int Time);
+    void placeOrder(int cost);
+    void orderGoesToKitchen(int prepTime);
+    void dispatchOrders();
+};
+
+int restaurant::custID = 0;
+int restaurant::tokenID = 1000;
+int restaurant::foodIndex = 0;
+
+void restaurant::setFoodItems(int id,string name,float rate){
+    food[foodIndex].foodID = id;
+    food[foodIndex].foodName = name;
+    food[foodIndex].rate = rate;
+    foodIndex++;
+}
+
+void restaurant::loadMenu(){
+     setFoodItems(1,"Lemon Mint",10.0);
+    setFoodItems(2,"Sweet Corn Salad",18.0);
+    setFoodItems(3,"Pasta Salad",15.0);
+    setFoodItems(4,"Urad Dal",10.0);
+    setFoodItems(5,"Beans Dal Fry",20.0);
+    setFoodItems(6,"Ginger Khadi",25.0);
+    setFoodItems(7,"Amla Chutney",30.0);
+    setFoodItems(8,"Green Dosa",30.0);
+    setFoodItems(9,"Apple Tomato Chutney",22.0);
+    setFoodItems(10,"Banana Halwa",16.0);
+    setFoodItems(11,"Groundnut Chutney",19.0);
+    setFoodItems(12,"Date Roll",26.0);
+}
+
+void restaurant::customerArrives(int Time){
+    customerInfo cust;
+    cust.custID = ++custID;
+    cust.arrivalTime = Time;
+    customerQueue.push(cust);
+    cout<<"Customer:"<<customerQueue.back().custID<<" Arrival time:"<<customerQueue.back().arrivalTime<<endl;
+}
+
+void restaurant::placeOrder(int cost){
+    order.tokenID = ++tokenID;
+    order.cost = cost;
+    cout<<"Order placed for customer:"<<customerQueue.front().custID<<" with token:"<<order.tokenID<<endl;
+    customerQueue.pop();
+}
+
+void restaurant::orderGoesToKitchen(int prepTime){
+    kitchen k;
+    k.order = order;
+    k.preparationTime = prepTime;
+    listInKitchen.push_back(k);
+}
+
+bool compare(kitchen first,kitchen second){
+    return (first.preparationTime<second.preparationTime);
+}
+
+void restaurant::dispatchOrders(){
+    listInKitchen.sort(compare);
+    int i;
+    
+    while(!listInKitchen.empty()){
+        orderDispatch.push(listInKitchen.front().order.tokenID);
+        listInKitchen.pop_front();
+        cout<<"Dispatched Token ID:"<<orderDispatch.back()<<endl;
+    }
+}
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    struct orders order;
+    restaurant MVPRestaurant;
+    int i;
+    
+    MVPRestaurant.customerArrives(1400);
+    MVPRestaurant.customerArrives(1440);
+    MVPRestaurant.customerArrives(1521);
+    MVPRestaurant.customerArrives(1525);
+    
+    //Customer 1
+    MVPRestaurant.placeOrder(165);
+    MVPRestaurant.orderGoesToKitchen(5);
+    
+    //Customer 2
+    MVPRestaurant.placeOrder(100);
+    MVPRestaurant.orderGoesToKitchen(10);
+
+    //Customer 3
+    MVPRestaurant.placeOrder(19);
+    MVPRestaurant.orderGoesToKitchen(6);
+
+    //Customer 4
+    MVPRestaurant.placeOrder(40);
+    MVPRestaurant.orderGoesToKitchen(14);
+    
+    MVPRestaurant.dispatchOrders();
+
+    return 0;
+}
