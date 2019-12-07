@@ -1,0 +1,262 @@
+#include <iostream>
+#include <string>
+#include <list>
+using namespace std;
+
+struct song{
+    int id;
+    string title;
+    string singer;
+    float duration;
+};
+
+class mediaPlayer{
+    private:
+    song s;
+    static int songID;
+    list<song> playlist;
+    list<song>::iterator it;
+    bool operator()(const song& s);
+    public:
+    void openPlayer();
+    void addToPlaylist(string songName,string singer,float duration,int position);
+    bool goToFirst();
+    bool goToLast();
+    bool goToPrev();
+    bool goToNext();
+    bool goToSong(string title);
+    void reverse();
+    void sortTitle();
+    void sortDuration();
+    void removeFromPlaylist(string songName);
+    void displayPlaylist();
+    void displaySong();
+};
+
+int mediaPlayer::songID=0;
+
+void mediaPlayer::displayPlaylist(){
+    /* Debugging
+    
+    */
+    cout<<"----------------------------------------------------------------"<<endl;
+    cout<<"Song Title \t\t Singer \t \t Duration\n";
+    cout<<"----------------------------------------------------------------"<<endl;
+    list<song> copyPlaylist;
+    list<song>::iterator copy_it;
+    copyPlaylist = playlist;
+    for(copy_it=copyPlaylist.begin();copy_it!=copyPlaylist.end();copy_it++)
+        cout<< copy_it->title <<"\t\t" << copy_it->singer <<"\t\t" << it->duration<<endl;
+    cout<<"----------------------------------------------------------------"<<endl;
+}
+
+void mediaPlayer::displaySong(){
+    cout<< it->title <<"\t\t" << it->singer << "\t\t" << it->duration<<endl;
+}
+
+void mediaPlayer::openPlayer(){
+    it = playlist.begin();
+}
+
+void mediaPlayer::addToPlaylist(string songName,string singer,float duration,int position){
+    s.id = ++songID;
+    s.title = songName;
+    s.singer = singer;
+    s.duration = duration;
+    int i;
+    list<song>::iterator copy_it;
+    copy_it = it;
+    
+    //Insert song at Specific position
+    it=playlist.begin();
+    if(position<=playlist.size()){
+        for(i=0;i<position;i++){
+            it++;
+        }
+        playlist.insert(it,s);
+    }else{
+        playlist.push_back(s);
+    }
+    
+    if(playlist.size()==1){
+        it = playlist.begin();
+    }else{
+        it = copy_it;
+    }
+}
+
+bool mediaPlayer::goToFirst(){
+    if(playlist.size()==0 || it==playlist.begin())
+        return false;
+    else
+        it = playlist.begin();
+        return true;
+}
+
+bool mediaPlayer::goToPrev(){
+    if(playlist.size()==0 || it==playlist.begin())
+        return false;
+    else
+        it--;
+        return true;
+}
+
+bool mediaPlayer::goToLast(){
+    if(playlist.size()==0)
+        return false;
+    if(++it == playlist.end()){
+        it--;
+        return false;
+    }else{
+        it = playlist.end();
+        it--;
+        return true;
+    }
+}
+
+bool mediaPlayer::goToNext(){
+    if(playlist.size()==0)
+        return false;
+    it++;
+    if(it!=playlist.end()){
+        return true;
+    }
+    else{
+        it--;
+        return false;
+    }
+}
+
+bool mediaPlayer::goToSong(string title){
+    if(playlist.size()==0)
+        return false;
+    int i;
+    list<song>::iterator copy_it;
+    copy_it=it;
+    
+    //Browse songs
+    it = playlist.begin();
+    while(it!=playlist.end()){
+        if(title.compare(it->title)==0){
+            return true;
+        }
+        it++;
+    }
+    
+    //Song not found 
+    it = copy_it;
+    return false;
+}
+
+void mediaPlayer::reverse(){
+    playlist.reverse();
+}
+
+struct removeSong{
+    string title;
+    bool operator()(const song& s){
+        return (s.title.compare(title)==0);
+    }
+};
+
+void mediaPlayer::removeFromPlaylist(string songTitile){
+    removeSong rs;
+    rs.title=songTitile;
+    playlist.remove_if(removeSong(rs));
+}
+
+bool byTitle(song first,song second){
+    return first.title < second.title;
+}
+
+void mediaPlayer::sortTitle(){
+    playlist.sort(byTitle);
+}
+
+bool byDuration(song first,song second){
+    return first.duration < second.duration;
+}
+
+void mediaPlayer::sortDuration(){
+    playlist.sort(byDuration);
+}
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    mediaPlayer player;
+    player.openPlayer();
+    
+    player.addToPlaylist("Adiyogi ","Kailash Kher",6.33,0);
+    player.addToPlaylist("Shiv Shankara","Sonu Nigam",5.41,1);
+    player.addToPlaylist("Namo Namo","Amit Trivedi",5.28,2);
+    player.addToPlaylist("Rahguzar","Bhuvan Bam",4.16,3);
+    player.addToPlaylist("Khushnuma","Multi Singer",4.20,4);
+    player.addToPlaylist("DAAK TICKET","JAVED BASHIR",3.59,5);
+    
+    cout<<"Playlist\n";
+    player.displayPlaylist();
+    
+    if(player.goToSong("Khushnuma"))
+        player.displaySong();
+    else 
+        cout<<"Song Not Found\n";
+        
+    if(player.goToFirst()) 
+        player.displaySong();
+    else
+        cout<<"Cannot navigate to 1st song\n";
+
+    if(player.goToLast())
+        player.displaySong();
+    else
+        cout<<"Cannot navigate to last song\n";
+
+    if(player.goToNext())
+        player.displaySong();
+    else
+        cout<<"Cannot navigate to next song\n";
+
+    if(player.goToPrev())
+        player.displaySong();
+    else    
+        cout<<"Cannot navigate to Previous song\n";
+
+    if(player.goToPrev())
+        player.displaySong();
+    else    
+        cout<<"Cannot navigate to Previous song\n";
+
+    if(player.goToNext())
+        player.displaySong();
+    else
+        cout<<"Cannot navigate to next song\n";
+
+    if(player.goToFirst())
+        player.displaySong();
+    else    
+        cout<<"Cannot navigate to 1st song\n";
+
+    if(player.goToPrev())
+        player.displaySong();
+    else
+        cout<<"Cannot navigate to previous song\n";
+        
+    player.reverse();
+    cout<<"Playlist reversed\n";
+    player.displayPlaylist();
+    
+    cout<<"Playlist Sorted on Title\n";
+    player.sortTitle();
+    player.displayPlaylist();
+    
+    cout<<"Playlist Sorted on Duration\n";
+    player.sortDuration();
+    player.displayPlaylist();
+    
+    player.removeFromPlaylist("DAAK TICKET");
+    cout<<"DAAK TICKET removed from the list\n";
+    player.displayPlaylist();
+
+    return 0;
+}
