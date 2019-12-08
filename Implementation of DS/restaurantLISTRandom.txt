@@ -154,8 +154,8 @@ void restaurant::dispatchOrders(){
 
 int main()
 {
-  cout<<"Hello World"<<endl;
-   std::srand(time(0));
+   cout<<"Hello World"<<endl;
+   srand(time(0));
    restaurant MVPrestaurant;
    int i,custarrive=0;
    MVPrestaurant.loadMenu();
