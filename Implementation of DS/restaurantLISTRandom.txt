@@ -1,0 +1,175 @@
+#include <iostream>
+#include <queue>
+#include <string>
+#include <list>
+using namespace std;
+
+struct customerInfo{
+    int custID;
+    int arrivalTime;
+};
+
+struct foodInfo{
+    int foodID;
+    string foodName;
+    float rate;
+};
+
+struct orders{
+    int tokenID;
+    int numberOfItems;
+    int item[20];
+    int qty[20];
+    int cost[20];
+    float totalCost;
+    int placingOrderTime;
+};
+
+struct kitchen{
+    struct orders order;
+    struct customerInfo cinfo;
+    int orderfulfilmentTime;
+    int preparationTime;
+};
+
+class restaurant{
+    private:
+    static int custID,tokenID,foodIndex;
+    struct foodInfo food[100];
+    struct orders order;
+    list<kitchen> listInKitchen;
+    queue<customerInfo> customerQueue;
+    queue<int> orderDispatch;
+    public:
+    void loadMenu();
+    void setFoodItems(int id,string name,float amount);
+    void customerArrives(int Time);
+    void placeOrder();
+    void orderGoesToKitchen();
+    void dispatchOrders();
+};
+
+int restaurant::custID = 0;
+int restaurant::tokenID = 1000;
+int restaurant::foodIndex = 0;
+
+int generateRandom(int low,int high){
+    return ((rand()%(high-low+1))+low);
+}
+
+void restaurant::setFoodItems(int id,string name,float rate){
+    food[foodIndex].foodID = id;
+    food[foodIndex].foodName = name;
+    food[foodIndex].rate = rate;
+    foodIndex++;
+}
+
+void restaurant::loadMenu(){
+     setFoodItems(1,"Lemon Mint",10.0);
+    setFoodItems(2,"Sweet Corn Salad",18.0);
+    setFoodItems(3,"Pasta Salad",15.0);
+    setFoodItems(4,"Urad Dal",10.0);
+    setFoodItems(5,"Beans Dal Fry",20.0);
+    setFoodItems(6,"Ginger Khadi",25.0);
+    setFoodItems(7,"Amla Chutney",30.0);
+    setFoodItems(8,"Green Dosa",30.0);
+    setFoodItems(9,"Apple Tomato Chutney",22.0);
+    setFoodItems(10,"Banana Halwa",16.0);
+    setFoodItems(11,"Groundnut Chutney",19.0);
+    setFoodItems(12,"Date Roll",26.0);
+}
+
+void restaurant::customerArrives(int Time){
+    customerInfo cust;
+    cust.custID = ++custID;
+    cust.arrivalTime = Time;
+    customerQueue.push(cust);
+    cout<<"Customer:"<<customerQueue.back().custID<<" Arrival time:"<<customerQueue.back().arrivalTime<<endl;
+}
+
+void restaurant::placeOrder(){
+    int index=0,itemID,qty,i,low;
+    order.tokenID = ++tokenID;
+    int totalCost,ptime;
+    
+    //placing order
+    order.numberOfItems = generateRandom(1,6);
+    itemID = generateRandom(1,3);
+    index = generateRandom(1,3);
+    for(i=0;i<order.numberOfItems;i++){
+        itemID=itemID+index;
+        qty=generateRandom(1,10);
+        order.item[i]=itemID;
+        order.qty[i]=qty;
+        order.cost[i]=food[itemID].rate*qty;
+        totalCost = totalCost+order.cost[i];
+    }
+    order.totalCost=totalCost;
+    
+    //placing time required
+    low = order.numberOfItems*5;
+    ptime=generateRandom(low,low+15);
+    if(listInKitchen.empty())
+        order.placingOrderTime = ptime + customerQueue.front().arrivalTime;
+    else{
+        if(customerQueue.front().arrivalTime>listInKitchen.back().order.placingOrderTime)
+            order.placingOrderTime=ptime+customerQueue.front().arrivalTime;
+        else
+            order.placingOrderTime=ptime+listInKitchen.back().order.placingOrderTime;
+    }
+    
+    //display order info of customer
+    cout<<"Order placed for customer"<<customerQueue.front().custID<<" with token:"<<order.tokenID<<" and timetaken is:"<<ptime<<endl;
+    orderGoesToKitchen();
+    customerQueue.pop();
+}
+
+void restaurant::orderGoesToKitchen(){
+    kitchen k;
+    k.order = order;
+    int pTime;
+    k.cinfo = customerQueue.front();
+    pTime = order.numberOfItems*120;
+    k.preparationTime=generateRandom(pTime,pTime+60);
+    k.orderfulfilmentTime=k.preparationTime+order.placingOrderTime;
+    
+    listInKitchen.push_back(k);
+    cout<<"List in kitchen updated for token id:"<<listInKitchen.back().order.tokenID<<" Preparation time:"<<listInKitchen.back().preparationTime<<endl;
+}
+
+bool compare(kitchen first,kitchen second){
+    return (first.preparationTime<second.preparationTime);
+}
+
+void restaurant::dispatchOrders(){
+    listInKitchen.sort(compare);
+    int i;
+    
+    while(!listInKitchen.empty()){
+        orderDispatch.push(listInKitchen.front().order.tokenID);
+        listInKitchen.pop_front();
+        cout<<"Dispatched Token ID:"<<orderDispatch.back()<<endl;
+    }
+}
+
+int main()
+{
+  cout<<"Hello World"<<endl;
+   std::srand(time(0));
+   restaurant MVPrestaurant;
+   int i,custarrive=0;
+   MVPrestaurant.loadMenu();
+   
+   for(i=1;i<=5;i++){
+       custarrive = custarrive+generateRandom(1,20);
+       MVPrestaurant.customerArrives(custarrive);
+   }
+   cout<<endl;
+   for(i=1;i<=5;i++){
+       MVPrestaurant.placeOrder();
+   }
+   cout<<endl;
+   MVPrestaurant.dispatchOrders();
+   
+   return 0;
+}
