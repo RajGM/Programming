@@ -1,5 +1,0 @@
-THis is a test to check if git commit is working Git commit count was 
-not working from months because I have setup different email on my pc 
-and different on my github account.
-Surely I will not repeat that mistake it has already cost me intern 
-oppurtunity 'At least I think so'
