@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+
+template <class T>
+
+T func (T a, T b) {
+  return a < b? a : b; 
+}
+
+int main () {
+    cout << func(2, 11) <<" ";
+    cout << func('e', 'f') <<" ";
+    cout << func(2.7, 11.0) <<" ";
+    return 0;
+}
