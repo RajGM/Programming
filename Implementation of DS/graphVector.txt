@@ -124,7 +124,9 @@ int main()
     cout << "\n\nPost-Order\n";
     b1.traverse(0,1);
 
-    cout<<b1.height(0)<<endl;
+    cout<<endl;
+
+    cout<<"Height:"<<b1.height(0)<<endl;
    
     return 0;
 }

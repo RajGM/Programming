@@ -1,0 +1,76 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define MAX_TREE_HEIGHT 100
+using namespace std;
+
+struct node{
+    char ch;
+    int freq;
+    struct node *left,*right;
+};
+
+struct compare{
+    bool operator()(node *a,node *b){
+        return (b->freq < a->freq);
+    }
+};
+
+node* makeNode(char ch,int freq){
+    node *temp = (node*)malloc(sizeof(node*));
+    temp->ch = ch;
+    temp->freq = freq;
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
+}
+
+void displayCodes(node *root,int code[],int index = 0){
+    if(root->left){
+        code[index]=0;
+        displayCodes(root->left,code,index+1);
+    }
+    if(root->right){
+        code[index]=1;
+        displayCodes(root->right,code,index+1);
+    }
+    if(root->left==NULL && root->right==NULL){
+        cout<<"Huffman Code for "<<root->ch<<":";
+        for(int i=0;i<index;i++){
+            cout<<code[i];
+        }
+        cout<<endl;
+    }
+}
+
+void huffmanCodes(char ch[],int fq[],int size){
+    int code[MAX_TREE_HEIGHT];
+    node *left,*right;
+    priority_queue<node*,vector<node*>,compare> pq;
+    //cout<<compare()<<endl;
+    for(int i=0;i<size;i++){
+        pq.push(makeNode(ch[i],fq[i]));
+        //cout<<(pq.top())<<endl;         //for testing only
+    }
+    while(pq.size()!=1){
+        left=pq.top();
+        pq.pop();
+        right=pq.top();
+        pq.pop();
+        node *temp = makeNode('#',left->freq + right->freq);
+        temp->left=left;
+        temp->right=right;
+        pq.push(temp);
+    }
+    displayCodes(pq.top(),code);
+}
+
+int main()
+{
+    cout<<"Hello World"<<end;
+    int size=9;
+    char ch[9] = {'a', 'b', 'c', 'd', 'e', 'f','g','h','i'};
+    int freq[9] = {15, 10, 12, 18, 55, 16, 22, 13, 17};
+    huffmanCodes(ch, freq, size);
+    return 0;
+}
+
