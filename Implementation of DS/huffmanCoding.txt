@@ -66,7 +66,7 @@ void huffmanCodes(char ch[],int fq[],int size){
 
 int main()
 {
-    cout<<"Hello World"<<end;
+    cout<<"Hello World"<<endl;
     int size=9;
     char ch[9] = {'a', 'b', 'c', 'd', 'e', 'f','g','h','i'};
     int freq[9] = {15, 10, 12, 18, 55, 16, 22, 13, 17};
