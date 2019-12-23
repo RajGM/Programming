@@ -1,3 +1,0 @@
-//All the programs written in this repo is aligned with CS101 and CS213 
-from IIT BombayX or edx//
-
