@@ -1,0 +1,125 @@
+#include <iostream>
+#include <vector>
+#include <list>
+#include <cstdlib>
+using namespace std;
+
+template<class T>
+class graph{
+    vector<list<T> > vectorList;
+    public:
+    void createGraphNodes(int a,T*);
+    void addEdge(T,T);
+    void removeEdge(T,T);
+    void printOutgoing();
+    void printIncoming();
+};
+
+template<class T>
+void graph<T>::createGraphNodes(int a,T vertex[]){
+    vectorList.resize(a);
+    int arrayIndex=0;
+    for(typename vector<list<T> >::iterator vectorIterator = 
+vectorList.begin(); 
+vectorIterator!=vectorList.end();vectorIterator++,arrayIndex++){
+        (*vectorIterator).push_back(vertex[arrayIndex]);
+    }
+}
+
+template<class T>
+void graph<T>::addEdge(T source,T destination){
+    for(typename vector<list<T> >::iterator vectorIterator = 
+vectorList.begin(); vectorIterator!=vectorList.end();vectorIterator++){
+        typename list<T>::iterator 
+listIterator=(*vectorIterator).begin();
+        if( (*listIterator) == source){
+            (*vectorIterator).push_back(destination);
+        }
+    }
+}
+
+template<class T>
+void graph<T>::removeEdge(T source,T destination){
+    bool foundDestination = false;
+    for(typename vector<list<T> >::iterator vectorIterator = 
+vectorList.begin(); vectorIterator!= vectorList.end();vectorIterator++){
+        typename list<T>::iterator listIterator = 
+(*vectorIterator).begin();
+        if( (*listIterator) == source){
+            (*vectorIterator).remove(destination);
+        }
+    }
+}
+
+template<class T>
+void graph<T>::printOutgoing(){
+    for(typename vector<list<T> >::iterator 
+vectorIterator=vectorList.begin();vectorIterator!=vectorList.end();vectorIterator++){
+        typename list<T>::iterator listIterator = 
+(*vectorIterator).begin();
+        cout<<(*listIterator)<<":";
+        listIterator++;
+        for(;listIterator!=(*vectorIterator).end();listIterator++){
+            cout<<(*listIterator)<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+template<class T>
+void graph<T>::printIncoming(){
+    for(typename vector<list<T> >::iterator 
+vIT=vectorList.begin();vIT!=vectorList.end();vIT++){
+        typename list<T>::iterator lIT = (*vIT).begin();
+        cout<<(*lIT)<<":";
+        
+        for(typename vector<list<T> >::iterator vectorIterator = 
+vectorList.begin();vectorIterator!= vectorList.end();vectorIterator++){
+            typename list<T>::iterator listIterator = 
+(*vectorIterator).begin();
+            listIterator++;
+            for(;listIterator!=(*vectorIterator).end();listIterator++){
+                if(*listIterator == *lIT){
+                    cout<<(*vectorIterator).front()<<" ";
+                    break;
+                }
+            }
+        }
+        cout<<endl;
+    }
+}
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    int size=5;
+    char vertex[]={'A','B','C','D','E'};
+    graph<char> g;
+    g.createGraphNodes(5,vertex);
+    cout<<"Graph nodes done"<<endl;
+    
+    g.addEdge('A','B');
+    g.addEdge('A','C');
+    g.addEdge('C','A');
+    g.addEdge('C','D');
+    g.addEdge('C','B');
+    g.addEdge('D','B');
+    
+    cout<<"Outgoing edges"<<endl;
+    g.printOutgoing();
+    
+    cout<<"Incoming edges"<<endl;
+    g.printIncoming();
+    cout<<endl;
+    
+    g.removeEdge('A','B');
+    g.removeEdge('C','D');
+
+    cout << "\nOutgoing Edges\n";
+    g.printOutgoing();
+    cout << "\nIncoming Edges\n";
+    g.printIncoming();
+
+    return 0;
+}
+
