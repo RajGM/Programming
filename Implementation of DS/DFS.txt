@@ -82,11 +82,11 @@ template<class T>
 void graph<T>::getVertices(T c[]){
     int index=0;
     for(typename vector<list<T> >::iterator vectorIterator = vectorList.begin();vectorIterator!=vectorList.end();vectorIterator++,index++){
-        cout<<"Vector Iterator:"<<(&vectorIterator)<<endl;
+        //cout<<"Vector Iterator:"<<(&vectorIterator)<<endl;
         typename list<T>::iterator listIterator = (*vectorIterator).begin();
         c[index] = (*listIterator);
-        cout<<"Addressof List Iterator:"<<(&listIterator)<<endl;
-        cout<<"Addressof Value of List Iterator:"<<(*listIterator)<<endl;
+        //cout<<"Addressof List Iterator:"<<(&listIterator)<<endl;
+        //cout<<"Addressof Value of List Iterator:"<<(*listIterator)<<endl;
         cout<<"List Iterator:"<<(*listIterator)<<endl;
     }
 }
