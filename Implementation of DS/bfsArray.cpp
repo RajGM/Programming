@@ -90,7 +90,6 @@ yComponent.push(0);
 cout<<"Debugging move point 1"<<endl;
 
 cout<<"Debugging move point 2"<<endl;
-
 while(mapArray[currX][currY]!='t'){
 cout<<"Debugging while:"<<currX+1<<" ";
 if((isOk(currX+1,currY) && (currX+1!=10) && (visited[currX+1][currY]!='v')))
@@ -129,10 +128,14 @@ answer.push_back(tempChar);
 }
 
 void array::run(){
+    cout<<"Inside run()"<<endl;
     cout<<"Target Block x:"<<xtarget<<" y:"<<ytarget<<endl;
     inputMap();
+    cout<<"inputMap() done"<<endl;
     move();
+    cout<<"move() done"<<endl;
     showPath();
+    cout<<"showPath() done"<<endl;
 }
 
 void array::showPath(){
