@@ -5,7 +5,7 @@ using namespace std;
 
 struct array{
 private:
-char mapArray[10][10];
+char mapArray[10][10]={0};
 char tempChar;
 queue<int> xComponent;
 queue<int> yComponent;
@@ -19,6 +19,9 @@ void moveLeft(int xC,int yC);
 void moveUp(int xC,int yC);
 void move();
 bool isOk(int xC,int yC);
+void showPath();
+public:
+void run();
 };
 
 void array::moveRight(int xC,int yC){
@@ -68,10 +71,12 @@ if((isOk(currX,currY-1)&&(currY-1!=-1)))
 moveUp(currX,currY-1);
 
 if((xComponent.size()!=0) && (yComponent.size()!=0)){
-    visited[xComponent.top()][yComponent.top()]='v';
+    currX=xComponent.front();
+    currY=yComponent.front();
     xComponent.pop();
     yComponent.pop();
-    tempChar=mapArray[xComponent][yComponent];
+    visited[currX][currY]='v';
+    tempChar=mapArray[currX][currY];
     answer.push_back(tempChar);
 }
 
@@ -84,20 +89,43 @@ answer.push_back(tempChar);
 }
 
 void array::inputMap(){
-    cout<<"Input values for map"<<endl;
+    cout<<"Values of map"<<endl;
+    //Using random numbers
+    /*
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){
             cout<<"Input value for i:"<<i<<" j:"<<j<<endl;
             cin>>mapArray[i][j];
         }
     }
+    */
+    for(int i=0;i<10;i++){
+        for(int j=0;j<10;j++){
+            int t=rand() % 10;
+            cout<<"T:"<<t<<endl;
+            mapArray[i][j]=t;
+            cout<<"i:"<<i<<" j:"<<j<<" "<<mapArray[i][j]<<endl;;
+        }
+    }
+}
+
+void array::showPath(){
+    cout<<"Answer:";
+    for(int i=0;i<answer.size();i++){
+        cout<<answer[i]<<" ";
+    }
+}
+
+void array::run(){
+    inputMap();
+    move();
+    showPath();
 }
 
 int main(){
 cout<<"Hello World"<<endl;
-
-
-
+array A;
+A.run();
 return 0;
 }
 
