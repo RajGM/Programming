@@ -11,6 +11,8 @@ queue<int> xComponent;
 queue<int> yComponent;
 vector<vector<char>> visited;
 vector<char> answer;
+int xtarget=1+rand() % 10;
+int ytarget=1+rand() % 10;
 
 void inputMap();
 void moveRight(int xC,int yC);
@@ -57,17 +59,22 @@ return true;
 
 void array::move(){
 int currX=0,currY=0;
+xComponent.push(0);
+yComponent.push(0);
+cout<<"Debugging move point 1"<<endl;
+
 while(mapArray[currX][currY]!='t'){
-if(isOk(currX+1,currY))
+cout<<"Debugging while:"<<currX+1<<" ";
+if((isOk(currX+1,currY) && (currX+1!=10) && (visited[currX+1][currY]!='v')))
 moveRight(currX+1,currY);
 
-if(isOk(currX,currY+1))
+if((isOk(currX,currY+1) && (currY+1!=10) && (visited[currX+1][currY]!='v')))
 moveDown(currX,currY+1);
 
-if((isOk(currX-1,currY)&&(currX-1!=-1)))
+if((isOk(currX-1,currY) && (currX-1!=-1) && (visited[currX-1][currY]!='v')))
 moveLeft(currX-1,currY);
 
-if((isOk(currX,currY-1)&&(currY-1!=-1)))
+if((isOk(currX,currY-1) && (currY-1!=-1) && (visited[currX][currY-1]!='v')))
 moveUp(currX,currY-1);
 
 if((xComponent.size()!=0) && (yComponent.size()!=0)){
@@ -101,9 +108,14 @@ void array::inputMap(){
     */
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){
-            int t=rand() % 10;
-            cout<<"T:"<<t<<endl;
-            mapArray[i][j]=t;
+            int t=rand() % 9;
+            char chA='0' + t;
+            //cout<<"T:"<<t<<endl;
+            //cout<<"CHA:"<<chA<<endl;
+            mapArray[i][j]=chA;
+            if(i==xtarget&&j==ytarget){
+                mapArray[i][j]='t';
+            }
             cout<<"i:"<<i<<" j:"<<j<<" "<<mapArray[i][j]<<endl;;
         }
     }
@@ -117,6 +129,7 @@ void array::showPath(){
 }
 
 void array::run(){
+    cout<<"Target Block x:"<<xtarget<<" y:"<<ytarget<<endl;
     inputMap();
     move();
     showPath();
