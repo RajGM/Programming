@@ -5,7 +5,7 @@ using namespace std;
 
 struct array{
 private:
-char mapArray[10][10]={0};
+char mapArray[10][10];
 char tempChar;
 queue<int> xComponent;
 queue<int> yComponent;
@@ -57,44 +57,6 @@ else
 return true;
 }
 
-void array::move(){
-int currX=0,currY=0;
-xComponent.push(0);
-yComponent.push(0);
-cout<<"Debugging move point 1"<<endl;
-
-while(mapArray[currX][currY]!='t'){
-cout<<"Debugging while:"<<currX+1<<" ";
-if((isOk(currX+1,currY) && (currX+1!=10) && (visited[currX+1][currY]!='v')))
-moveRight(currX+1,currY);
-
-if((isOk(currX,currY+1) && (currY+1!=10) && (visited[currX+1][currY]!='v')))
-moveDown(currX,currY+1);
-
-if((isOk(currX-1,currY) && (currX-1!=-1) && (visited[currX-1][currY]!='v')))
-moveLeft(currX-1,currY);
-
-if((isOk(currX,currY-1) && (currY-1!=-1) && (visited[currX][currY-1]!='v')))
-moveUp(currX,currY-1);
-
-if((xComponent.size()!=0) && (yComponent.size()!=0)){
-    currX=xComponent.front();
-    currY=yComponent.front();
-    xComponent.pop();
-    yComponent.pop();
-    visited[currX][currY]='v';
-    tempChar=mapArray[currX][currY];
-    answer.push_back(tempChar);
-}
-
-}
-xComponent.push(currX);
-yComponent.push(currY);
-visited[currX][currY]='v';
-tempChar=mapArray[currX][currY];
-answer.push_back(tempChar);
-}
-
 void array::inputMap(){
     cout<<"Values of map"<<endl;
     //Using random numbers
@@ -121,11 +83,49 @@ void array::inputMap(){
     }
 }
 
-void array::showPath(){
-    cout<<"Answer:";
-    for(int i=0;i<answer.size();i++){
-        cout<<answer[i]<<" ";
-    }
+void array::move(){
+int currX=0,currY=0;
+xComponent.push(0);
+yComponent.push(0);
+cout<<"Debugging move point 1"<<endl;
+
+cout<<"Debugging move point 2"<<endl;
+
+while(mapArray[currX][currY]!='t'){
+cout<<"Debugging while:"<<currX+1<<" ";
+if((isOk(currX+1,currY) && (currX+1!=10) && (visited[currX+1][currY]!='v')))
+moveRight(currX+1,currY);
+
+if((isOk(currX,currY+1) && (currY+1!=10) && (visited[currX+1][currY]!='v')))
+moveDown(currX,currY+1);
+
+if((isOk(currX-1,currY) && (currX-1!=-1) && (visited[currX-1][currY]!='v')))
+moveLeft(currX-1,currY);
+
+if((isOk(currX,currY-1) && (currY-1!=-1) && (visited[currX][currY-1]!='v')))
+moveUp(currX,currY-1);
+
+if( (!xComponent.empty()) && (!yComponent.empty()) ){
+    currX=xComponent.front();
+    currY=yComponent.front();
+    xComponent.pop();
+    yComponent.pop();
+    visited[currX][currY]='v';
+    tempChar=mapArray[currX][currY];
+    answer.push_back(tempChar);
+}
+
+}
+
+cout<<"Debugging move point 3"<<endl;
+
+/*
+xComponent.push(currX);
+yComponent.push(currY);
+visited[currX][currY]='v';
+tempChar=mapArray[currX][currY];
+answer.push_back(tempChar);
+*/
 }
 
 void array::run(){
@@ -133,6 +133,13 @@ void array::run(){
     inputMap();
     move();
     showPath();
+}
+
+void array::showPath(){
+    cout<<"Answer:";
+    for(int i=0;i<answer.size();i++){
+        cout<<answer[i]<<" ";
+    }
 }
 
 int main(){
