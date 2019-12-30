@@ -90,6 +90,7 @@ yComponent.push(0);
 cout<<"Debugging move point 1"<<endl;
 
 cout<<"Debugging move point 2"<<endl;
+//Not working from while segmentation fault core dump 
 while(mapArray[currX][currY]!='t'){
 cout<<"Debugging while:"<<currX+1<<" ";
 if((isOk(currX+1,currY) && (currX+1!=10) && (visited[currX+1][currY]!='v')))
