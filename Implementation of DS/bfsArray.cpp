@@ -7,6 +7,7 @@ struct arr{
 private:
 char mapArray[10][10];
 char tempChar;
+int sizeVisited=0;
 queue<int> xComponent;
 queue<int> yComponent;
 char visited[10][10]={'u'};
@@ -93,12 +94,14 @@ void arr::move(){
 int currX=0,currY=0;
 xComponent.push(0);
 yComponent.push(0);
-cout<<"Debugging move point 1"<<endl;
-
-cout<<"Debugging move point 2"<<endl;
-//Not working from while segmentation fault core dump 
+visited[currX][currY]='v';
+tempChar=mapArray[currX][currY];
+answer.push_back(tempChar);
+sizeVisited++;
+//cout<<"Debugging move point 1"<<endl;
+//Getting infinite loop 
 while(mapArray[currX][currY]!='t'){
-cout<<"Debugging while:"<<currX+1<<" "<<endl;
+//cout<<"Debugging while:"<<currX+1<<" "<<endl;
 if((isOk(currX+1,currY) && (currX+1!=10) ))
 moveRight(currX+1,currY);
 
@@ -119,6 +122,8 @@ if( (!xComponent.empty()) && (!yComponent.empty()) ){
     visited[currX][currY]='v';
     tempChar=mapArray[currX][currY];
     answer.push_back(tempChar);
+    sizeVisited++;
+    cout<<"Last if values"<<" currX:"<<currX<<" currY:"<<currY<<" visited:"<<visited[currX][currY]<<" tempChar:"<<tempChar<<" Visited size:"<<sizeVisited<<endl;
 }
 
 }
