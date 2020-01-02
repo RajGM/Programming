@@ -48,13 +48,6 @@ yComponent.push(yC);
 
 bool arr::isOk(int xC,int yC){
 return ((visited[xC][yC]!='v') && (mapArray[xC][yC]!='t'));
-if(visited[xC][yC]=='v')
-return false;
-else
-if(mapArray[xC][xC]=='x')
-return false;
-else
-return true;
 }
 
 void arr::inputMap(){
@@ -93,16 +86,16 @@ cout<<"Debugging move point 2"<<endl;
 //Not working from while segmentation fault core dump 
 while(mapArray[currX][currY]!='t'){
 cout<<"Debugging while:"<<currX+1<<" ";
-if((isOk(currX+1,currY) && (currX+1!=10) && (visited[currX+1][currY]!='v')))
+if((isOk(currX+1,currY) && (currX+1!=10) ))
 moveRight(currX+1,currY);
 
-if((isOk(currX,currY+1) && (currY+1!=10) && (visited[currX+1][currY]!='v')))
+if((isOk(currX,currY+1) && (currY+1!=10) ))
 moveDown(currX,currY+1);
 
-if((isOk(currX-1,currY) && (currX-1!=-1) && (visited[currX-1][currY]!='v')))
+if((isOk(currX-1,currY) && (currX-1!=-1) ))
 moveLeft(currX-1,currY);
 
-if((isOk(currX,currY-1) && (currY-1!=-1) && (visited[currX][currY-1]!='v')))
+if((isOk(currX,currY-1) && (currY-1!=-1) ))
 moveUp(currX,currY-1);
 
 if( (!xComponent.empty()) && (!yComponent.empty()) ){
