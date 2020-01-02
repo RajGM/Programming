@@ -3,7 +3,7 @@
 #include<queue>
 using namespace std;
 
-struct array{
+struct arr{
 private:
 char mapArray[10][10];
 char tempChar;
@@ -26,27 +26,27 @@ public:
 void run();
 };
 
-void array::moveRight(int xC,int yC){
+void arr::moveRight(int xC,int yC){
 xComponent.push(xC);
 yComponent.push(yC);
 }
 
-void array::moveDown(int xC,int yC){
+void arr::moveDown(int xC,int yC){
 xComponent.push(xC);
 yComponent.push(yC);
 }
 
-void array::moveLeft(int xC,int yC){
+void arr::moveLeft(int xC,int yC){
 xComponent.push(xC);
 yComponent.push(yC);
 }
 
-void array::moveUp(int xC,int yC){
+void arr::moveUp(int xC,int yC){
 xComponent.push(xC);
 yComponent.push(yC);
 }
 
-bool array::isOk(int xC,int yC){
+bool arr::isOk(int xC,int yC){
 return ((visited[xC][yC]!='v') && (mapArray[xC][yC]!='t'));
 if(visited[xC][yC]=='v')
 return false;
@@ -57,7 +57,7 @@ else
 return true;
 }
 
-void array::inputMap(){
+void arr::inputMap(){
     cout<<"Values of map"<<endl;
     //Using random numbers
     /*
@@ -83,7 +83,7 @@ void array::inputMap(){
     }
 }
 
-void array::move(){
+void arr::move(){
 int currX=0,currY=0;
 xComponent.push(0);
 yComponent.push(0);
@@ -128,7 +128,7 @@ answer.push_back(tempChar);
 */
 }
 
-void array::run(){
+void arr::run(){
     cout<<"Inside run()"<<endl;
     cout<<"Target Block x:"<<xtarget<<" y:"<<ytarget<<endl;
     inputMap();
@@ -139,7 +139,7 @@ void array::run(){
     cout<<"showPath() done"<<endl;
 }
 
-void array::showPath(){
+void arr::showPath(){
     cout<<"Answer:";
     for(int i=0;i<answer.size();i++){
         cout<<answer[i]<<" ";
@@ -148,13 +148,7 @@ void array::showPath(){
 
 int main(){
 cout<<"Hello World"<<endl;
-array A;
+arr A;
 A.run();
 return 0;
 }
-
-
-
-
-
-
