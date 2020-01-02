@@ -9,7 +9,7 @@ char mapArray[10][10];
 char tempChar;
 queue<int> xComponent;
 queue<int> yComponent;
-vector<vector<char>> visited;
+char visited[10][10]={'u'};
 vector<char> answer;
 int xtarget=1+rand() % 10;
 int ytarget=1+rand() % 10;
@@ -74,6 +74,19 @@ void arr::inputMap(){
             cout<<"i:"<<i<<" j:"<<j<<" "<<mapArray[i][j]<<endl;;
         }
     }
+    
+    for(int i=0;i<10;i++){
+        for(int j=0;j<10;j++){
+            visited[i][j]='u';
+        }
+    }
+    /*
+    for(int i=0;i<10;i++){
+        for(int j=0;j<10;j++){
+            cout<<"Coordinates x:"<<i<<" y:"<<j<<" "<<visited[i][j]<<endl;
+        }
+    }
+    */
 }
 
 void arr::move(){
@@ -85,7 +98,7 @@ cout<<"Debugging move point 1"<<endl;
 cout<<"Debugging move point 2"<<endl;
 //Not working from while segmentation fault core dump 
 while(mapArray[currX][currY]!='t'){
-cout<<"Debugging while:"<<currX+1<<" ";
+cout<<"Debugging while:"<<currX+1<<" "<<endl;
 if((isOk(currX+1,currY) && (currX+1!=10) ))
 moveRight(currX+1,currY);
 
