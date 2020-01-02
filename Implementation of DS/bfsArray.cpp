@@ -48,7 +48,7 @@ yComponent.push(yC);
 }
 
 bool arr::isOk(int xC,int yC){
-return ((visited[xC][yC]!='v') && (mapArray[xC][yC]!='t'));
+return (((visited[xC][yC]=='u') && (mapArray[xC][yC]!='x')));
 }
 
 void arr::inputMap(){
@@ -92,27 +92,32 @@ void arr::inputMap(){
 
 void arr::move(){
 int currX=0,currY=0;
-xComponent.push(0);
-yComponent.push(0);
+xComponent.push(currX);
+yComponent.push(currY);
+xComponent.pop();
+yComponent.pop();
 visited[currX][currY]='v';
 tempChar=mapArray[currX][currY];
 answer.push_back(tempChar);
 sizeVisited++;
+cout<<"Last if values"<<" currX:"<<currX<<" currY:"<<currY<<" visited:"<<visited[currX][currY]<<" tempChar:"<<tempChar<<" Visited size:"<<sizeVisited<<endl;
 //cout<<"Debugging move point 1"<<endl;
 //Getting infinite loop 
-while(mapArray[currX][currY]!='t'){
+while(sizeVisited<=100){
+//if(mapArray[currX][currY]!='t')
+//    break;
 //cout<<"Debugging while:"<<currX+1<<" "<<endl;
-if((isOk(currX+1,currY) && (currX+1!=10) ))
-moveRight(currX+1,currY);
+if(( isOk(currX,currY+1) && (currY+1!=10) ))
+moveRight(currX,currY+1);
 
-if((isOk(currX,currY+1) && (currY+1!=10) ))
-moveDown(currX,currY+1);
+if(( isOk(currX+1,currY) && (currX+1!=10) ))
+moveDown(currX+1,currY);
 
-if((isOk(currX-1,currY) && (currX-1!=-1) ))
-moveLeft(currX-1,currY);
+if(( isOk(currX,currY-1) && (currY-1!=-1) ))
+moveLeft(currX,currY-1);
 
-if((isOk(currX,currY-1) && (currY-1!=-1) ))
-moveUp(currX,currY-1);
+if(( isOk(currX-1,currY) && (currX-1!=-1) ))
+moveUp(currX-1,currY);
 
 if( (!xComponent.empty()) && (!yComponent.empty()) ){
     currX=xComponent.front();
@@ -120,8 +125,7 @@ if( (!xComponent.empty()) && (!yComponent.empty()) ){
     xComponent.pop();
     yComponent.pop();
     visited[currX][currY]='v';
-    tempChar=mapArray[currX][currY];
-    answer.push_back(tempChar);
+    answer.push_back(mapArray[currX][currY]);
     sizeVisited++;
     cout<<"Last if values"<<" currX:"<<currX<<" currY:"<<currY<<" visited:"<<visited[currX][currY]<<" tempChar:"<<tempChar<<" Visited size:"<<sizeVisited<<endl;
 }
@@ -155,6 +159,7 @@ void arr::showPath(){
     for(int i=0;i<answer.size();i++){
         cout<<answer[i]<<" ";
     }
+    cout<<endl;
 }
 
 int main(){
