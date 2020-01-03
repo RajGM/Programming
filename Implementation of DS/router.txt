@@ -1,2 +1,0 @@
-//Let us setup our own web server with dns router virtual host server 
-zone and do everything manually 
