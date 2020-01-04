@@ -1,2 +1,0 @@
-//Lets us build our own server with everything from scratch and then we 
-will build applications on it

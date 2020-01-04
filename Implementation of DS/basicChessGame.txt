@@ -1,2 +1,0 @@
-//In this we will build basic chess game
-
