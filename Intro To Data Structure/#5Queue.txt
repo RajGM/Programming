@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+
+struct Queue{
+    int front,rear,capacity;
+    int *q;
+    
+    Queue(int c){
+        front=rear=0;
+        capacity =c;
+        q = new int;
+    }
+    
+    ~Queue(){
+        delete[] q;
+    }
+    
+    void insertQ(int data){
+        if(capacity == rear){
+            cout<<"Queue is full"<<endl;
+            return;
+        }else{
+            q[rear] = data;
+            rear++;
+        }
+        return;
+    }
+    
+    void remQ(){
+        if(front == rear){
+            cout<<"Queue is empty"<<endl;
+            return;
+        }else{
+            for(int i=0;i<rear;i++){
+                q[i]=q[i+1];
+            }
+            rear--;
+        }
+        return;
+    }
+    
+    void display(){
+        if(front == rear){
+            cout<<"Empty Queue"<<endl;
+            return;
+        }else{
+            for(int i=0;i<rear;i++){
+                cout<<q[i]<<endl;
+            }
+        }
+        return;
+    }
+    
+    void frontQ(){
+        if(front == rear){
+            cout<<"Queue is empty"<<endl;
+            return;
+        }else{
+            cout<<q[front]<<endl;
+        }
+    }
+
+};
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    Queue q(4);
+    q.insertQ(1);
+    q.insertQ(2);
+    q.insertQ(3);
+    q.insertQ(4);
+    
+    q.display();
+    
+    q.remQ();
+    q.remQ();
+    
+    q.frontQ();
+    
+    return 0;
+}

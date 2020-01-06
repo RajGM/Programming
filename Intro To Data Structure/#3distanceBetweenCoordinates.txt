@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+int abs(int x){
+    if(x<0) return -x;
+    else return x;
+}
+struct complex {
+    int AA, BB;
+    
+    complex(int x=0){
+    	AA=x;
+        BB=0;
+    }
+};
+
+
+complex activity(complex a1, complex b1) {
+    complex c1;
+    c1.AA = a1.AA + b1.AA;
+    c1.BB = a1.BB + b1.BB; 
+    return c1;
+}
+
+complex action3(complex a1, complex b1) {
+    complex c1;
+    c1.AA = a1.AA - b1.AA;
+    c1.BB = a1.BB - b1.BB; 
+    return c1;
+}
+
+complex activity2(complex a1, complex b1) {
+    complex c1;
+    c1.AA = a1.AA*b1.AA - a1.BB*b1.BB;
+    c1.BB = a1.AA*b1.BB + a1.BB*b1.AA;
+    return c1;
+}
+
+complex activity4(complex a1, complex b1) {
+    complex c1;
+    c1.AA = (a1.AA*b1.AA + a1.BB*b1.BB)/(b1.AA*b1.AA+b1.BB*b1.BB);
+    c1.BB = (-a1.AA*b1.BB + a1.BB*b1.AA)/(b1.AA*b1.AA+b1.BB*b1.BB);
+    return c1;
+}
+
+int main(){
+    complex num1, num2; 
+    /*num1 and num2 are two points in the complex plane */
+    num1.AA=4; // x-coordinate of num1
+    num1.BB=-4; // y-coordinate of num1
+    num2.AA=5; // x-coordinate of num2
+    num2.BB=9; // y-coordinate of num2
+    // Line 1
+    
+    int dist= action3(activity2(activity(num1.AA, num2.AA), activity(num1.AA, num2.AA)), activity2(activity(num1.BB, num2.BB), activity(num1.BB, num2.BB))).AA ;
+    //int dist= activity(activity2(action3(num1.AA, num2.AA), action3(num1.AA, num2.AA)), activity2(action3(num1.BB, num2.BB), action3(num1.BB, num2.BB))).AA ;
+    //int dist= activity2(activity(action3(num1.AA, num2.AA), action3(num1.AA, num2.AA)), activity(action3(num1.BB, num2.BB), action3(num1.BB, num2.BB))).AA ;
+    cout<<dist<<endl;
+    return 0;
+}
+
+
