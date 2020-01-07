@@ -1,0 +1,27 @@
+// Linked list node Node is a struct with two data members : 
+// data which is an int
+// next which points to the next element of the linked list
+
+f(Node* head)
+{
+	ret = 0;
+	ptr = NULL;
+
+	if( head != NULL ) 
+	{
+		head = head->next;
+	}
+	
+	if ( head != NULL) ptr = head->next;
+
+	while(ptr != NULL) 
+	{
+		ret += (ret + head->data);
+		head = head->next;
+		ptr = ptr -> next;
+	}
+
+	return ret;
+}
+
+//need completetion
