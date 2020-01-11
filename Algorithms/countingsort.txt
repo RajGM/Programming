@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+
+void countSort(int a[],int k,int s){
+int countArray[k]={0};
+for(int i=0;i<s;i++){
+countArray[a[i]]=countArray[a[i]]+1;
+//cout<<countArray[a[i]]<<" Counting"<<endl;
+}
+
+cout<<"Count ARRAY:"<<endl;
+for(int i=0;i<k;i++){
+    cout<<"Element:"<<i<<" count:"<<countArray[i]<<endl;
+}
+}
+
+int main(){
+int lengthOfArray=0,range=0;
+cout<<"Enter length of Array:";
+cin>>lengthOfArray;
+cout<<"Input last number of range:";
+cin>>range;
+
+int arr[lengthOfArray];
+
+for(int i=0;i<lengthOfArray;i++){
+cout<<"Enter element for index:";
+cin>>arr[i];
+}
+
+countSort(arr,range,lengthOfArray);
+
+return 0;
+}
+
+
