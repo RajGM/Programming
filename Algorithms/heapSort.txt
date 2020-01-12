@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+void showArray(int arr[],int n){
+    //cout<<"Inside show array"<<endl;
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+}
+
+void heapfiy(int arr[],int n,int i){
+    //cout<<"Inside heapfiy"<<endl;
+    int largest=i;
+    int rightEle=2*largest+1;
+    int leftEle=2*largest+2;
+    //cout<<"R,L,l calculations done"<<endl;
+    cout<<"Before Comparision"<<endl;
+    cout<<"Largest Element Index:"<<largest<<" RightElement 
+Index:"<<rightEle<<" LeftElement Index:"<<leftEle<<endl;
+    cout<<"Largest Element:"<<arr[largest]<<" 
+RightElement:"<<arr[rightEle]<<" LeftElement:"<<arr[leftEle]<<endl;
+    cout<<"Array:";
+    showArray(arr,n);
+    cout<<endl;
+    
+cout<<"=================================================================="<<endl;
+    
+    if(rightEle<n && arr[rightEle]>arr[largest])
+        largest=rightEle;
+        
+    if(leftEle<n && arr[leftEle]>arr[largest])
+        largest=leftEle;
+    
+    cout<<"After Comparision"<<endl;
+    cout<<"Largest Element Index:"<<arr[largest]<<" RightElement 
+Index:"<<rightEle<<" LeftElement Index:"<<leftEle<<endl;
+    cout<<"Largest Element:"<<arr[largest]<<" 
+RightElement:"<<arr[rightEle]<<" LeftElement:"<<arr[leftEle]<<endl;
+    
+    
+    if(largest != i){
+        swap(arr[largest],arr[i]);
+        heapfiy(arr,n,largest);
+                    }
+        
+}
+
+void heapsort(int arr[],int n){
+    //cout<<"Inisde heapsort"<<endl;
+    for(int i=n/2-1;i>=0;i--){
+        heapfiy(arr,n,i);
+    }
+    
+    for(int i=n-1;i>=0;i--){
+        swap(arr[0],arr[i]);
+        heapfiy(arr,i,0);
+    }
+}
+
+
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    int arrEle[]={5,4,2,1,2,3,4,5};
+    int n = sizeof(arrEle)/sizeof(arrEle[0]);
+    //cout<<"Calculations done"<<endl;
+
+    showArray(arrEle,n);
+    cout<<endl;
+
+    heapsort(arrEle,n);
+    
+    showArray(arrEle,n);
+
+    return 0;
+}
+
