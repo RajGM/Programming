@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+void printArr(int arr[],int n){
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
+void shellsort(int arr[],int n){
+    for(int gap=n/2;gap>0;gap=gap/2){
+        cout<<"Gap value:"<<gap<<endl;
+        for(int i=gap;i<n;i++){
+            cout<<"I value:"<<i<<endl;
+            int temp=arr[i];
+            cout<<"Temp = arr[i]"<<endl;
+            cout<<"Temp value:"<<temp<<endl;
+            
+            int j;
+            for(j=i;j>=gap && arr[j-gap]>temp;j=j-gap){
+                cout<<"value of j inside for loop:"<<j<<endl;
+                arr[j]=arr[j-gap];
+                cout<<"arr[j]=arr[j-gap]"<<endl;
+                cout<<"Value of Arr[j] inside for loop:"<<arr[j]<<endl;
+            }
+            cout<<"Value of Arr[j] inside for loop before 
+updation:"<<arr[j]<<endl;
+            arr[i]=temp;
+            cout<<"arr[j]=temp"<<endl;
+            cout<<"Value of Arr[j] inside for loop after 
+updation:"<<arr[j]<<endl;
+            cout<<"Array after loop:"<<endl;
+            printArr(arr,n);
+            cout<<endl;
+            cout<<"======================"<<endl;
+        }
+    }
+}
+
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    int arr[]={1,2,3,4,12,9,8,7,6,5,4,32,1,234},i;
+    int n = sizeof(arr)/sizeof(arr[0]);
+    
+    cout<<"Array Before sorting:"<<endl;
+    printArr(arr,n);
+    shellsort(arr,n);
+    cout<<"Array After sorting:"<<endl;
+    printArr(arr,n);
+
+    return 0;
+}
+
