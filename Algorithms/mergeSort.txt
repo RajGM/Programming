@@ -12,7 +12,7 @@ void merge(int arr[],int l,int m,int r){
     int i,j,k;
     int n1 = m - l + 1;
     int n2 = r - m;
-    cout<<"L:"<<l<<" M:"<<m<<" R:"<<r<<" N1:"<<n1<<" N2:"<<n2<<endl;
+    cout<<"L:"<<l<<" R:"<<r<<" M:"<<m<<" N1:"<<n1<<" N2:"<<n2<<endl;
     int L[n1],R[n2];
     
     for(i=0;i<n1;i++)
@@ -20,16 +20,9 @@ void merge(int arr[],int l,int m,int r){
     for(j=0;j<n2;j++)
         R[j]=arr[m + 1 + j];
         
-    cout<<"=============================Array L====================="<<endl;
-    printArray(L,n1);
-    cout<<"=============================Array R====================="<<endl;
-    printArray(R,n2);
-    cout<<"========================================================="<<endl;
-    cout<<endl;
-        
     i=0;
     j=0;
-    k=0;
+    k=l;
     
     while(i<n1 && j<n2){
         if(L[i]<=R[j]){
@@ -54,6 +47,17 @@ void merge(int arr[],int l,int m,int r){
         j++;
         k++;
     }
+    
+    cout<<"=============================Array L====================="<<endl;
+    printArray(L,n1);
+    cout<<"=============================Array R====================="<<endl;
+    printArray(R,n2);
+    cout<<"========================================================="<<endl;
+    //printArray(arr,k);
+    //Not found yet to see whole array but sure soon make it work
+    cout<<endl;
+    
+    
 }
 
 
@@ -62,10 +66,8 @@ void mergeSort(int arr[],int l,int r){
         int m = l + (r-l)/2;
         cout<<"L:"<<l<<" R:"<<r<<" M:"<<m<<endl;
         mergeSort(arr,l,m);
-        cout<<"L:"<<l<<" R:"<<r<<" M:"<<m<<endl;
         mergeSort(arr,m+1,r);
-        cout<<"L:"<<l<<" R:"<<r<<" M:"<<m<<endl;
-        
+
         merge(arr,l,m,r);
     }
 }
@@ -74,6 +76,7 @@ int main()
 {
     cout<<"Hello World"<<endl;
     int arr[] = {1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1};
+    //int arr[] = {34,85,23,56,98,32,44,77,645};
     int arrSize=sizeof(arr)/sizeof(arr[0]);
     
     cout<<"===============Before Sorting======================"<<endl;
