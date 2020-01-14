@@ -5,19 +5,27 @@ void printArray(int arr[],int size){
     for(int i=0;i<size;i++){
         cout<<arr[i]<<" ";
     }
+    cout<<endl;
 }
 
 void merge(int arr[],int l,int m,int r){
     int i,j,k;
     int n1 = m - l + 1;
     int n2 = r - m;
-    
+    cout<<"L:"<<l<<" M:"<<m<<" R:"<<r<<" N1:"<<n1<<" N2:"<<n2<<endl;
     int L[n1],R[n2];
     
     for(i=0;i<n1;i++)
         L[i]=arr[l+i];
     for(j=0;j<n2;j++)
         R[j]=arr[m + 1 + j];
+        
+    cout<<"=============================Array L====================="<<endl;
+    printArray(L,n1);
+    cout<<"=============================Array R====================="<<endl;
+    printArray(R,n2);
+    cout<<"========================================================="<<endl;
+    cout<<endl;
         
     i=0;
     j=0;
@@ -51,10 +59,12 @@ void merge(int arr[],int l,int m,int r){
 
 void mergeSort(int arr[],int l,int r){
     if(l<r){
-        int m = l + (r-1)/2;
+        int m = l + (r-l)/2;
         cout<<"L:"<<l<<" R:"<<r<<" M:"<<m<<endl;
         mergeSort(arr,l,m);
+        cout<<"L:"<<l<<" R:"<<r<<" M:"<<m<<endl;
         mergeSort(arr,m+1,r);
+        cout<<"L:"<<l<<" R:"<<r<<" M:"<<m<<endl;
         
         merge(arr,l,m,r);
     }
