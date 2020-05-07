@@ -1,15 +1,215 @@
-Pseudo code 
+import java.lang.reflect.Array; 
 
-mergesort(A):
-mergesort(A, 0,len(A)-1)
+public class Sorting {
+	/**
+	 * Implement the mergesort function, which should sort the array of
+	 * integers in place
+	 * 
+	 * You will probably want to use helper functions here, as described in the lecture recordings
+	 * (ex. merge(), a helper mergesort function)
+	 * @param arr
+	 */
+	public static void mergeSort(CompareInt[] arr) {
+		//TODO
+		//System.out.println("Hello This is a test for checking I am able to understand the program");
+        //System.out.println("Inside mergeSort:");
+       // System.out.println("Arr:"+arr.length);
+       /*
+        for(int i=0;i<=arr.length-1;i++){
+            System.out.println("Initial Arr element:"+arr[i].val);
+            } 
+      */
+        CompareInt arrAux1[] = new CompareInt[arr.length];
+        mergeS(arr,arrAux1,0,arr.length-1);     
+        /*
+        for(int i=0;i<=arr.length-1;i++){
+            System.out.println("Final Arr element:"+arr[i].val);
+            }
+        */
+	}
+    
+    public static void mergeS(CompareInt[] arr,CompareInt arrAux[],int startI,int endI){
+        //System.out.println("StartIndex:"+startI+" EndIndex:"+endI);
+       // if(endI-startI<=0)
+       //     return;
+       System.out.println("Incoming start:"+startI+" Incoming endI:"+endI);
+        if(endI-startI<=0){
+            System.out.println("Returning point");
+            return;
+        }
+        int mid = (startI+endI)/2;
+        System.out.println("Midpoint value:"+mid);
+        
+        System.out.println("Outgoing start:"+startI+" Outgoing endI:"+mid);
+        mergeS(arr,arrAux,startI,mid);
+        System.out.println("Outgoing start:"+mid+1+" Outgoing endI:"+endI);
+        mergeS(arr,arrAux,mid+1,endI);
+        
+      //  System.out.println("Inside mergeS");
+      //  System.out.println("StartIndex:"+startI+" EndIndex:"+endI+" Midpoint value:"+mid);
+     //   System.out.println("Arr length:"+arr.length);
+        System.out.println("Outgoing merge start:"+startI+" Outgoing merge mid:"+mid+" Outgoing merge endI:"+endI);
+        System.out.println("Mergecall point"); 
+        System.out.println("Midpoint value:"+mid);
+         arrAux = merge(arr,startI,mid,endI);
 
-mergesort(A, aux, lo, hi):
-if (hi - lo <= 1)return
-mid = (lo + hi) / 2
-mergesort(A, lo, mid)
-mergesort(A, mid+1,hi)
-C = merge(A[lo:mid], A[mid+1:hi])
-copy elements from C back intoA
+        for(int i=0;i<=arrAux.length-1;i++){
+            arr[i]=arrAux[i];
+            //System.out.println("Arr element:"+arr[i].val);
+            }
+        
+    }
+    
+   public static CompareInt[] merge(CompareInt[] arr,int startI,int midpoint,int endI){
+    CompareInt[] resA = new CompareInt[arr.length];
+    int i=0,j=0,k=0;
+    //int n1 = arr.length-midpoint;
+    //int n2 = arr.length-n1;
+    int n1 = midpoint;
+    int n2 = endI-midpoint;
+    //System.out.println("Midpoint value inside merge:"+midpoint);
+    System.out.println("N1:"+n1+" N2:"+n2);
+    
+    CompareInt[] L = new CompareInt[n1];
+    CompareInt[] R = new CompareInt[n2];
+    
+    for(i=0;i<n1;i++){
+        L[i]=arr[startI+i];
+       //System.out.println("Inside Left loop"+i);
+       //System.out.println(L[i].val);
+        }
+    
+    for(j=0;j<n2;j++){
+        R[j]=arr[midpoint+j+1];
+        //System.out.println("Inside Right loop "+j);
+        //System.out.println(R[j].val);
+    }
+    
+    i=0;
+    j=0;
+    k=0;
+       
+    while(i<n1 && j<n2){
+        if(L[i].val<=R[j].val){
+            resA[k]=L[i];
+           // System.out.println(resA[i].val);
+            i++;
+            k++;
+        }
+        else{
+            resA[k]=R[j];
+           // System.out.println(resA[j].val);
+            j++;
+            k++;
+        }
+    }
+    
+    while(i<n1){
+        resA[k]=L[i];
+        //System.out.println(resA[k].val);
+        i++;
+        k++;
+    }
+    
+    while(j<n2){
+        resA[k]=R[j];
+        //System.out.println(resA[k].val);
+        j++;
+        k++;
+    }
+         
+     return resA;  
+   }
+    
+	public static CompareInt quickSelect(int k, CompareInt[] arr) {
+        /*
+		for(int i=0;i<=arr.length-1;i++){
+            System.out.println("Initial Arr element:"+arr[i].val);
+            }
+        */
+		CompareInt fiV = quickSort(arr,0,arr.length-1,k);
+        /*
+        for(int i=0;i<=arr.length-1;i++){
+            System.out.println("Initial Arr element:"+arr[i].val);
+            }
+        System.out.println("fiV value:"+fiV);
+        */
+        return fiV;
+        
+	}
+        
+    public static CompareInt quickSort(CompareInt[] arr,int startI,int endI,int k){
+        if(startI>=endI)
+            return arr[startI];
+        
+        int pivLoc = partition(arr,startI,endI);
+        if(arr[pivLoc].val == k)
+            return arr[k];
+        else if(pivLoc>k)
+            return quickSelect(arr,startI,pivLoc-1,k);
+        else 
+            return quickSelect(arr,pivLoc+1,endI,k-pivLoc+1);
+    }
 
-now real code
+    public static int partition(CompareInt[] arr,int low,int high){
+        int pivotIndex = (int)(Math.random()*(high-low)) + low;
+        //int pivotIndex = (int)(Math.random()*high-1);
+        //pivotIndex = pivotIndex.nextInt(high-1);
+        //System.out.println("pivotIndex"+pivotIndex);
+        //nextInt num.nextInt( 10 );
+        //int rand = (int)(Math.random() * range) + min;
+        //System.out.println("Pivot Index"+arr[pivotIndex].val);
+        //System.out.println("Last ele"+arr[arr.length-1].val);
+        CompareInt var1 = arr[pivotIndex];
+        arr[pivotIndex] = arr[high];
+        arr[high] = var1;
+        
+        pivotIndex = arr[high].val;
+        
+        int i=low,j=high;
+        CompareInt[] newArr = new CompareInt[arr.length];
+        
+        //System.out.println("low"+low+"high"+high);
+        
+        for(int k=low;k<=high;k++){
+            if(arr[k].val <= pivotIndex){
+                newArr[i++] = arr[k];
+                //System.out.println("arr"+k+" "+arr[k].val);
+            }else{
+                newArr[j--] = arr[k];
+                //System.out.println("arr"+k+" "+arr[k].val);
+            }
+        }
+        /*
+        for(int b=0;b<=arr.length-1;b++){
+            System.out.println("Arr element:"+newArr[b].val);
+            }
+        */
+        newArr[i]=arr[high];
+        /*
+        System.out.println("swap high pivot"+arr[high].val);
+        
+        for(int b=0;b<=arr.length-1;b++){
+            System.out.println("Arr element:"+newArr[b].val);
+            }
+        */
+         for(int z=low;z<=high;z++){
+            //System.out.println("Array"+arr[z].val);
+            arr[z]=newArr[z];
+            //System.out.println("New Array"+newArr[z].val);
+                                }
+        
+        return i;
+    }    
+    
+    public static CompareInt quickSelect(CompareInt[] arr,int startI,int endI,int k){
+        
+        for(int i=startI;i<=endI;i++){
+            if(arr[i].val==k)
+                return arr[i];
+        }
+        return null;
+    }
+}
 
+    
