@@ -9,29 +9,16 @@ public class Sorting {
 	 * (ex. merge(), a helper mergesort function)
 	 * @param arr
 	 */
+     
 	public static void mergeSort(CompareInt[] arr) {
-		//TODO
-		//System.out.println("Hello This is a test for checking I am able to understand the program");
-        //System.out.println("Inside mergeSort:");
-       // System.out.println("Arr:"+arr.length);
-       /*
-        for(int i=0;i<=arr.length-1;i++){
-            System.out.println("Initial Arr element:"+arr[i].val);
-            } 
-      */
+		
         CompareInt arrAux1[] = new CompareInt[arr.length];
         mergeS(arr,arrAux1,0,arr.length-1);     
-        /*
-        for(int i=0;i<=arr.length-1;i++){
-            System.out.println("Final Arr element:"+arr[i].val);
-            }
-        */
+       
 	}
     
     public static void mergeS(CompareInt[] arr,CompareInt arrAux[],int startI,int endI){
-        //System.out.println("StartIndex:"+startI+" EndIndex:"+endI);
-       // if(endI-startI<=0)
-       //     return;
+
        System.out.println("Incoming start:"+startI+" Incoming endI:"+endI);
         if(endI-startI<=0){
             System.out.println("Returning point");
@@ -65,8 +52,10 @@ public class Sorting {
     
     //int n1 = arr.length-midpoint;
     //int n2 = arr.length-n1;
-    int n1 = midpoint;
-    int n2 = endI-midpoint;
+    // int n1 = midpoint;
+    //int n2 = endI-midpoint;
+    int n1 = midpoint - startI + 1;
+    int n2 = endI - midpoint;
     //System.out.println("Midpoint value inside merge:"+midpoint);
     System.out.println("N1:"+n1+" N2:"+n2);
     
@@ -120,6 +109,8 @@ public class Sorting {
          
      return resA;  
    }
+   
+   
     
 	public static CompareInt quickSelect(int k, CompareInt[] arr) {
         /*
@@ -135,12 +126,11 @@ public class Sorting {
         System.out.println("fiV value:"+fiV);
         */
         return fiV;
-        
 	}
         
     public static CompareInt quickSort(CompareInt[] arr,int startI,int endI,int k){
         if(startI>=endI)
-            return arr[startI];
+            return arr[k];
         
         int pivLoc = partition(arr,startI,endI);
         if(arr[pivLoc].val == k)
@@ -169,15 +159,16 @@ public class Sorting {
         int i=low,j=high;
         CompareInt[] newArr = new CompareInt[arr.length];
         
-        //System.out.println("low"+low+"high"+high);
-        
-        for(int k=low;k<=high;k++){
+        System.out.println("PivotIndex Value:"+pivotIndex);
+        System.out.println("Buggy point");
+        for(int k=low;k<=high-1;k++){
             if(arr[k].val <= pivotIndex){
                 newArr[i++] = arr[k];
-                //System.out.println("arr"+k+" "+arr[k].val);
+                System.out.println("arr"+k+" "+arr[k].val);
+                //System.out.println("Newarr:"+i+" "+newArr[i].val);
             }else{
                 newArr[j--] = arr[k];
-                //System.out.println("arr"+k+" "+arr[k].val);
+                //System.out.println("Newarr:"+i+" "+newArr[j].val);
             }
         }
         /*
@@ -185,31 +176,39 @@ public class Sorting {
             System.out.println("Arr element:"+newArr[b].val);
             }
         */
-        newArr[i]=arr[high];
-        /*
         System.out.println("swap high pivot"+arr[high].val);
+        newArr[i]=arr[high];
+        System.out.println("swap high pivot"+arr[high].val);
+        System.out.println("NewArr"+newArr[i].val);
+        /*
         
         for(int b=0;b<=arr.length-1;b++){
             System.out.println("Arr element:"+newArr[b].val);
             }
         */
-         for(int z=low;z<=high;z++){
-            //System.out.println("Array"+arr[z].val);
+        System.out.println("low"+low+"high"+high);
+        System.out.println("Buggy point");
+        ////////////////!!!!!!!!BUG POINT!!!!!!!!///////////////
+         for(int z=0;z<arr.length-1;z++){
+            System.out.println("New Array"+newArr[z].val);
             arr[z]=newArr[z];
-            //System.out.println("New Array"+newArr[z].val);
-                                }
+            System.out.println("Array"+arr[z].val);
+         }    
+         
         
+        for(int z=low;z<high;z++){
+            System.out.println("Array"+arr[z].val);
+         }  
         return i;
     }    
     
     public static CompareInt quickSelect(CompareInt[] arr,int startI,int endI,int k){
         
-        for(int i=startI;i<=endI;i++){
-            if(arr[i].val==k)
+        for(int i=startI;i<endI;i++){
+            if(arr[i].val == k){
                 return arr[i];
+            }
         }
         return null;
     }
 }
-
-    
